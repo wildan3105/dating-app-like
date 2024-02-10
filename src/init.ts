@@ -1,7 +1,5 @@
 import 'reflect-metadata'; // for TypeORM
 
-import { NODE_ENV } from './config';
-
 import { HealthcheckController } from './controllers/healthcheck';
 import { UserController } from './controllers/user';
 
@@ -23,8 +21,6 @@ interface InitResponse {
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export async function init(dataSource: DataSource): Promise<InitResponse> {
-    const environment = NODE_ENV;
-
     const userRepo = new UserRepository(dataSource);
     const userVerificationCodeRepo = new UserVerificationCodeRepository(dataSource);
 

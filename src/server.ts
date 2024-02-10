@@ -1,8 +1,5 @@
 import 'source-map-support/register';
 
-// This needs to be imported before everything else.
-// eslint-disable-next-line import/order
-
 import { createApp } from './app';
 import gracefulShutdown from 'http-graceful-shutdown';
 
