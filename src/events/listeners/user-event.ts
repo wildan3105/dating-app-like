@@ -25,4 +25,12 @@ export class UserEventListener {
             console.error(`error when handling new user event ${e}`)
         }
     }
+
+    async handleUserLogout(userId: string): Promise<void> {
+        try {
+            // TODO: invalidate token and or send notif to user
+        } catch (e) {
+            console.error(`error when handling user logout event ${e}`)
+        }
+    }
 }

@@ -32,6 +32,9 @@ export class User implements IUser {
     @DeleteDateColumn()
     deleted_at: Date;
 
+    @DeleteDateColumn()
+    last_logout_at: Date;
+
     @OneToMany(() => UserVerificationCode, (code) => code.user)
     verificationCodes: UserVerificationCode[];
 

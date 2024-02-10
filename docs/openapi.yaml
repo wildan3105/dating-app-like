@@ -157,9 +157,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error404Response'
-  /users/{id}:
+  /users/auth/logout:
+    post:
+      description: Logs the user out
+      tags:
+        - user
+      operationId: userLogout
+      responses:
+        200:
+          description: User logs out successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLogoutResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400Response'
+        401:
+          description: Password is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401Response'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Response'
+  /users/profile:
     get:
-      description: Get user details
+      description: Get user profile details
       tags:
         - user
       operationId: userGetDetails
@@ -469,6 +500,12 @@ components:
           type: string
         access_token:
           type: string
+    UserLogoutResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message indicating successful user logs out
     UserDetailsResponse:
       type: object
       required:

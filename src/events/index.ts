@@ -14,4 +14,8 @@ events.on('new_user', async (user: User, code: string) => {
     await userEventListener.handleNewUser(user, code);
 })
 
+events.on('user_logout', async (userId: string) => {
+    await userEventListener.handleUserLogout(userId);
+})
+
 export default events;

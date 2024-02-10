@@ -127,11 +127,16 @@ export class UserService {
         }
     }
 
-    async getUserDetails(targetId: string, userId: string): Promise<IUserDetailsResponse> {
-        if (targetId !== userId) {
-            throw new StandardError(ErrorCodes.UNAUTHORIZED, 'Cannot see other profile.')
-        }
+    async logout(id: string): Promise<void> {
+        const now = new Date(); 
+        await this.userRepo.updateLastLogoutAt(id, now);
 
+        // TODO: future improvement by adding token to the 'blacklisted_token' so that we can validate during the login
+        // for now, I'll just emit an event to indicate certain user is performing log out
+        events.emit('user_logout', { user_id: id });
+    }
+
+    async getUserDetails(userId: string): Promise<IUserDetailsResponse> {
         const userDetails = await this.userRepo.findOneByFilter({ id: userId });
         if (!userDetails) {
             throw new StandardError(ErrorCodes.USER_NOT_FOUND, 'User not found');
