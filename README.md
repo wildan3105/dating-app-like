@@ -15,7 +15,7 @@
 1. Clone the project: `git clone git@github.com:wildan3105/dating-app-like.git`
 2. Install dependencies: `npm i`
 3. Copy the environment variable and adjust the value accordingly: `cp .env.example .env`
-4. Create a postgre user and then database in which you have full access to that DB (could create extension). And then specify the credentials in the `.env` file
+4. Create a postgre user and then database in which you have full access to that DB (could [create extension](./src/libs/typeorm/migrations/1691117052407-create-user-table.ts#L5-L6)). And then specify the credentials in the `.env` file
 
 ```bash
 PGHOST='localhost'
