@@ -2,6 +2,7 @@ import { Request, NextFunction, Response } from 'express';
 import { ErrorCodeMap, ErrorCodes } from '../../domain/errors';
 
 export const errorHandler = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return (err: any, _req: Request, res: Response, _: NextFunction) => {
         if (err.status) {
             console.log(`Validation error ${err}`);

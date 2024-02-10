@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { TOKEN_SECRET_KEY } from '../../config';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-    let token: string | undefined = req.headers['x-access-token'] as string;
+    const token: string | undefined = req.headers['x-access-token'] as string;
 
     if (!token) {
         return res.status(403).send({

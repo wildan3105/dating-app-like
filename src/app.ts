@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, RequestHandler } from 'express';
+import express, { Application, RequestHandler } from 'express';
 import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import compression from 'compression';

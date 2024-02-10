@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import readline from 'readline';
-import { $Refs } from 'swagger-parser'; // eslint-disable-line import/no-extraneous-dependencies
+import { $Refs } from 'swagger-parser';
 
 // https://github.com/APIDevTools/json-schema-ref-parser/issues/139
 import $RefParser from '@apidevtools/json-schema-ref-parser';
