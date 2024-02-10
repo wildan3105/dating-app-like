@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { HealthcheckController } from '../../controllers/healthcheck';
-import { HealthcheckService } from '../../services/healthcheck';
+import { HealthcheckController } from '../../src/controllers/healthcheck';
+import { HealthcheckService } from '../../src/services/healthcheck';
 import { DataSource } from 'typeorm';
 
-jest.mock('../../services/healthcheck');
+jest.mock('../../src/services/healthcheck');
 const MockedHealthcheckService = HealthcheckService as jest.Mocked<typeof HealthcheckService>;
 const mockedHealthcheckServiceInstance = new MockedHealthcheckService(null as unknown as DataSource);
 
