@@ -29,14 +29,6 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
         if (decoded) {
             const decodedPayload = decoded as JwtPayload;
-            const currentTimestamp = Math.floor(Date.now() / 1000);
-            if (decodedPayload.exp && decodedPayload.exp < currentTimestamp) {
-                return res.status(401).send({
-                    error_code: 'UNAUTHORIZED',
-                    message: 'Token has expired!'
-                });
-            }
-
             req.userId = decodedPayload.id as string;
             next();
         } else {
