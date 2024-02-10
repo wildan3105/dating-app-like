@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:18-alpine
+    container_name: dating-app-container
+    environment:
+      APP_ENV: 'local'
+      APP_MODE: 'development'
+      NODE_ENV: 'local'
+      PORT: '3002'
+      PGDATABASE: 'db'
+      PGHOST: 'postgres'
+      PGPORT: '5432'
+      PGUSER: 'postgres'
+      PGPASSWORD: 'pass'
+      ELASTIC_EMAIL_BASE_URL: 'https://api.elasticemail.com/v4'
+      ELASTIC_EMAIL_API_KEY: 'api-key' # to be changed later
+      TOKEN_SECRET_KEY: 'random-uuid'
+    volumes:
+      - ./builds:/app/builds
+      - .:/app
+    depends_on:
+      - postgres
+    ports:
+      - '3002:3002'
+    working_dir: /app
+    command: sh -c 'npm install && npm run migration:run && npm run start'
+
+  postgres:
+    image: postgres:12-bullseye
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: 'db'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'pass'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
