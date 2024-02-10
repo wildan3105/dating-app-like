@@ -15,7 +15,7 @@
 1. Clone the project: `git clone git@github.com:wildan3105/dating-app-like.git`
 2. Install dependencies: `npm i`
 3. Copy the environment variable and adjust the value accordingly: `cp .env.example .env`
-4. Create postgre users and then database in which you have full access to that DB. And then specify the credentials in the `.env` file
+4. Create a postgre user and then database in which you have full access to that DB (could create extension). And then specify the credentials in the `.env` file
 
 ```bash
 PGHOST='localhost'
@@ -24,8 +24,6 @@ PGUSER='postgres'
 PGDATABASE='db'
 PGPASSWORD='postgrespass123'
 ```
-
-5. Run the migration file: `npm run migration:run`
 
 #### Using TypeScript
 
