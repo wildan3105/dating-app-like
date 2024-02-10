@@ -48,6 +48,13 @@ export class ElasticEmailService {
 
             await axios.post(request.url, request.body, { headers: authHeader });
         } catch (e) {
+            if (axios.isAxiosError(e)) {
+                if (e.response) {
+                    if (e.response.status === 400 && e.response.data.Error === 'APIKey Expired') {
+                        throw new Error(`Incorrect Elastic Email API key. Please recheck your environment variable.`);
+                    }
+                }
+            }
             console.log(`error when sending email: ${e}`);
         }
     }
