@@ -18,10 +18,10 @@
 4. Create postgre users and then database in which you have full access to that DB. And then specify the credentials in the `.env` file
 
 ```bash
-PGDATABASE='db'
 PGHOST='localhost'
 PGPORT='5432'
 PGUSER='postgres'
+PGDATABASE='db'
 PGPASSWORD='postgrespass123'
 ```
 
