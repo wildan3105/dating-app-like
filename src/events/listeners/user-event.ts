@@ -17,12 +17,12 @@ export class UserEventListener {
                 subject: emailTemplates(emailType.NEW_USER),
                 content: `Hi <b> ${user.first_name}</b>! \n Welcome to the dating app. \n Please activate your account by clicking this link \n: <a href=${BASE_URL}/users/verify?code=${code}> Link</a>`
             };
-    
-            console.log(`Sending email to ${user.email} for verification`)
-    
+
+            console.log(`Sending email to ${user.email} for verification`);
+
             await this.emailService.sendEmail(emailContent);
         } catch (e) {
-            console.error(`error when handling new user event ${e}`)
+            console.error(`error when handling new user event ${e}`);
         }
     }
 
@@ -30,7 +30,7 @@ export class UserEventListener {
         try {
             // TODO: invalidate token and or send notif to user
         } catch (e) {
-            console.error(`error when handling user logout event ${e}`)
+            console.error(`error when handling user logout event ${e}`);
         }
     }
 }

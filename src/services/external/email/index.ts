@@ -7,7 +7,7 @@ interface sendEmailBody {
     recipient: string;
     subject: string;
     content: string;
-};
+}
 
 export class ElasticEmailService {
     private baseURL: string;
@@ -29,16 +29,16 @@ export class ElasticEmailService {
                     Subject: payload.subject,
                     Body: [
                         {
-                            ContentType: "HTML",
+                            ContentType: 'HTML',
                             Content: payload.content,
-                            Charset: "UTF-8"
+                            Charset: 'UTF-8'
                         }
                     ]
                 }
-            }
+            };
             const request = {
-                url: this.baseURL + "/emails/transactional",
-                method: "POST",
+                url: this.baseURL + '/emails/transactional',
+                method: 'POST',
                 body: requestBody
             };
 
@@ -48,7 +48,7 @@ export class ElasticEmailService {
 
             await axios.post(request.url, request.body, { headers: authHeader });
         } catch (e) {
-            console.log(`error when sending email: ${e}`)
+            console.log(`error when sending email: ${e}`);
         }
     }
 }

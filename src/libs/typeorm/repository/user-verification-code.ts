@@ -13,7 +13,7 @@ export class UserVerificationCodeRepository extends Repository<UserVerificationC
 
         newVerificationCode.code = verificationCode.code;
         newVerificationCode.expired_at = verificationCode.expired_at;
-        newVerificationCode.user = user;        
+        newVerificationCode.user = user;
 
         const createdVerificationCode = await this.save(newVerificationCode);
 

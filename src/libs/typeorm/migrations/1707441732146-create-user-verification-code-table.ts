@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateUserVerificationCodeTable1707441732146 implements MigrationInterface {
-    
     public async up(queryRunner: QueryRunner) {
         await queryRunner.query(`CREATE TABLE "user_verification_code" (
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

@@ -13,7 +13,7 @@ export class UserVerificationCode implements IUserVerificationCode {
     @Column()
     expired_at: Date;
 
-    @ManyToOne(() => User, user => user.verificationCodes)
+    @ManyToOne(() => User, (user) => user.verificationCodes)
     @JoinColumn({ name: 'user_id' })
     user: User;
 

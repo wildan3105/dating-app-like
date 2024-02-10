@@ -231,7 +231,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: ['200', '400', '403', '404','409', '410', '422', '500']
+            enum: ['200', '400', '403', '404', '409', '410', '422', '500']
       responses:
         200:
           description: default response, instruction to use this endpoint
@@ -393,7 +393,7 @@ components:
       properties:
         error_code:
           type: string
-          enum: 
+          enum:
             - UNPROCESSABLE
         message:
           type: string

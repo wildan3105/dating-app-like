@@ -3,11 +3,11 @@ import { ErrorCodeMap, ErrorCodes } from '../../domain/errors';
 
 export const errorHandler = () => {
     return (err: any, _req: Request, res: Response, _: NextFunction) => {
-        if ((err).status) {
-            console.log(`Validation error ${err}`)
+        if (err.status) {
+            console.log(`Validation error ${err}`);
             return res.status(err.status).json({
                 message: err.message,
-                error_code: err.error_code || ErrorCodes.API_VALIDATION_ERROR,
+                error_code: err.error_code || ErrorCodes.API_VALIDATION_ERROR
             });
         }
 
@@ -20,7 +20,7 @@ export const errorHandler = () => {
                 context: err.context
             };
 
-            console.log(`API error: ${JSON.stringify(logContext)} | ${err}`)
+            console.log(`API error: ${JSON.stringify(logContext)} | ${err}`);
 
             return res.status(statusCode).send({
                 error_code: err.error_code,
@@ -28,7 +28,7 @@ export const errorHandler = () => {
             });
         }
 
-        console.error(`unexpected error: ${err}`)
+        console.error(`unexpected error: ${err}`);
 
         return res.status(500).send({
             error_code: 'SERVER_ERROR',

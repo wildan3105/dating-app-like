@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddEmailAndDeletedAtToUser1707401199405 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Add the "email" column
         await queryRunner.query(`ALTER TABLE "user" ADD COLUMN email TEXT NOT NULL`);

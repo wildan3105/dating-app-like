@@ -24,7 +24,7 @@ interface InitResponse {
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export async function init(dataSource: DataSource): Promise<InitResponse> {
     const environment = NODE_ENV;
-    
+
     const userRepo = new UserRepository(dataSource);
     const userVerificationCodeRepo = new UserVerificationCodeRepository(dataSource);
 

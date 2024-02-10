@@ -1,6 +1,6 @@
 export interface EmailRequest {
     Recipients: EmailRecipients;
-    Content: EmailContent
+    Content: EmailContent;
 }
 
 export interface EmailOptions {
@@ -61,15 +61,6 @@ interface Utm {
     Content?: string;
 }
 
-type ContentType = "HTML"
-    | "PlainText"
-    | "AMP"
-    | "CSS"
+type ContentType = 'HTML' | 'PlainText' | 'AMP' | 'CSS';
 
-type Encoding = "UserProvided" 
-    | "None" 
-    | "Raw7bit" 
-    | "Raw8bit" 
-    | "QuotedPrintable"
-    | "Base64"
-    | "Uue"
+type Encoding = 'UserProvided' | 'None' | 'Raw7bit' | 'Raw8bit' | 'QuotedPrintable' | 'Base64' | 'Uue';

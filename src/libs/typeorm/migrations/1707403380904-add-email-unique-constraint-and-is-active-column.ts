@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddIsActiveAndUniqueEmail1707403380904 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Add the is_active column
         await queryRunner.query(`ALTER TABLE "user" ADD COLUMN is_active BOOLEAN DEFAULT false`);

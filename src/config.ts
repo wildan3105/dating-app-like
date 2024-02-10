@@ -26,6 +26,6 @@ export const PGPASSWORD = process.env.PGPASSWORD;
 export const ELASTIC_EMAIL_BASE_URL = process.env.ELASTIC_EMAIL_BASE_URL;
 export const ELASTIC_EMAIL_API_KEY = process.env.ELASTIC_EMAIL_API_KEY;
 
-export const BASE_URL = APP_ENV === 'local'? `http://localhost:${PORT}` : 'https://backend-point.com';
+export const BASE_URL = APP_ENV === 'local' ? `http://localhost:${PORT}` : 'https://backend-point.com';
 
 export const TOKEN_SECRET_KEY = process.env.TOKEN_SECRET_KEY;

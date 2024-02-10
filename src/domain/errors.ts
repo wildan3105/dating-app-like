@@ -11,7 +11,7 @@ export const ErrorCodes = {
     CONFLICT: 'CONFLICT',
     CODE_EXPIRED: 'CODE_EXPIRED',
     UNPROCESSABLE: 'UNPROCESSABLE',
-    INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+    INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR'
 };
 export const ErrorCodeMap: { [key: string]: number } = {
     API_VALIDATION_ERROR: 400,
@@ -21,5 +21,5 @@ export const ErrorCodeMap: { [key: string]: number } = {
     CONFLICT: 409,
     CODE_EXPIRED: 410,
     UNPROCESSABLE: 422,
-    INTERNAL_SERVER_ERROR: 500,
+    INTERNAL_SERVER_ERROR: 500
 };

@@ -43,8 +43,8 @@ export async function createApp(): Promise<{ app: Application; dataSource: DataS
         OpenApiValidator.middleware({
             apiSpec: './docs/openapi.yaml',
             validateRequests: true, // (default)
-            validateResponses: true, // false by default
-        }),
+            validateResponses: true // false by default
+        })
     );
 
     // This should be last, right before routes are installed

@@ -2,15 +2,7 @@ import { DataSourceOptions } from 'typeorm';
 import { entities } from '../../libs/typeorm/entities';
 import { migrations } from '../../libs/typeorm/migrations';
 
-import {
-    IS_PRODUCTION,
-    IS_TEST,
-    PGHOST,
-    PGPORT,
-    PGUSER,
-    PGPASSWORD,
-    PGDATABASE,
-} from '../../config';
+import { IS_PRODUCTION, IS_TEST, PGHOST, PGPORT, PGUSER, PGPASSWORD, PGDATABASE } from '../../config';
 
 export const OrmConfig = {
     logging: !IS_PRODUCTION && !IS_TEST,

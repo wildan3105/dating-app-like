@@ -6,7 +6,6 @@ import 'source-map-support/register';
 import { createApp } from './app';
 import gracefulShutdown from 'http-graceful-shutdown';
 
-
 /**
  * Helper function to log an exit code before exiting the process.
  */
@@ -33,7 +32,7 @@ const setupProcessEventListeners = () => {
     });
 
     process.on('warning', (warning: Error) => {
-        console.log(`encountered warning with message: ${warning}`)
+        console.log(`encountered warning with message: ${warning}`);
     });
 };
 
@@ -45,12 +44,12 @@ const setupProcessEventListeners = () => {
     try {
         const { app } = await createApp();
         const server = app.listen(app.get('port'), () => {
-            console.log(`Started express server in environment: ${app.get('env')} on port: ${app.get('port')}`)
+            console.log(`Started express server in environment: ${app.get('env')} on port: ${app.get('port')}`);
         });
 
         gracefulShutdown(server);
         setupProcessEventListeners();
     } catch (err) {
-        console.error(`error caught in server.ts, details: ${err}`)
+        console.error(`error caught in server.ts, details: ${err}`);
     }
 })();

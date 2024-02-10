@@ -49,7 +49,7 @@ export interface IUserVerificationRequest {
 
 export interface IUserWithVerificationCode {
     id: string;
-    codes: IVerificationCodes[]
+    codes: IVerificationCodes[];
 }
 
 interface IVerificationCodes {

@@ -36,7 +36,7 @@ export class UserController {
             const userVerificationRequest: IUserVerificationRequest = {
                 code: req.query.code as string
             };
-    
+
             const userVerified = await this.userService.verify(userVerificationRequest.code);
             if (userVerified) {
                 return res.status(200).json({

@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
-export function injectEnv(path = "./.env"): Record<never, unknown> {
-  return dotenv.config({ path });
+export function injectEnv(path = './.env'): Record<never, unknown> {
+    return dotenv.config({ path });
 }

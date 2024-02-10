@@ -1,18 +1,24 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 import { UserRepository } from '../libs/typeorm/repository/user';
-import { UserVerificationCodeRepository } from '../libs/typeorm/repository/user-verification-code';  
+import { UserVerificationCodeRepository } from '../libs/typeorm/repository/user-verification-code';
 import { ErrorCodes } from '../domain/errors';
 import { StandardError } from '../domain/standard-error';
-import { IUserCreateRequest, IUserCreateResponse, IUserLoginRequest, IUserLoginResponse, IUserDetailsResponse } from '../interfaces/user';
+import {
+    IUserCreateRequest,
+    IUserCreateResponse,
+    IUserLoginRequest,
+    IUserLoginResponse,
+    IUserDetailsResponse
+} from '../interfaces/user';
 import { TOKEN_SECRET_KEY } from '../config';
-import events  from '../events';
+import events from '../events';
 
 const SEVEN_DAY_IN_MILIS = 7 * 24 * 60 * 60 * 1000;
 const CODE_LENGTH = 255;
 const SALT_ROUNDS = 13;
-const TOKEN_LIFETIME_IN_SECONDS = 86400 // 24 hours
+const TOKEN_LIFETIME_IN_SECONDS = 86400; // 24 hours
 
 export class UserService {
     private readonly userRepo: UserRepository;
@@ -32,11 +38,17 @@ export class UserService {
         const existingActiveUser = await this.userRepo.findOneByFilter(filter);
 
         if (existingActiveUser) {
-            throw new StandardError(ErrorCodes.UNPROCESSABLE, `User with email: ${filter.email} is already registered.`)
+            throw new StandardError(
+                ErrorCodes.UNPROCESSABLE,
+                `User with email: ${filter.email} is already registered.`
+            );
         }
 
         if (!this.isValidCode(user.password)) {
-            throw new StandardError(ErrorCodes.API_VALIDATION_ERROR, 'Password must contain at least 1 number, 1 uppercase letter and 1 lowercase letter.')
+            throw new StandardError(
+                ErrorCodes.API_VALIDATION_ERROR,
+                'Password must contain at least 1 number, 1 uppercase letter and 1 lowercase letter.'
+            );
         }
 
         user.password = bcrypt.hashSync(user.password, SALT_ROUNDS);
@@ -49,9 +61,9 @@ export class UserService {
             expired_at: expiredAt,
             code,
             user_id: createdUser.id
-        }
+        };
 
-        await this.userVerificationCodeRepo.createVerificationCode(verificationCodeData, createdUser)
+        await this.userVerificationCodeRepo.createVerificationCode(verificationCodeData, createdUser);
 
         if (createdUser) {
             events.emit('new_user', createdUser, verificationCodeData.code);
@@ -70,7 +82,10 @@ export class UserService {
 
     async verify(code: string): Promise<boolean | Error> {
         if (code.length !== CODE_LENGTH || !this.isValidCode(code)) {
-            throw new StandardError(ErrorCodes.API_VALIDATION_ERROR, 'Code is invalid. Please check your verification code.')
+            throw new StandardError(
+                ErrorCodes.API_VALIDATION_ERROR,
+                'Code is invalid. Please check your verification code.'
+            );
         }
 
         const verificationCode = await this.userVerificationCodeRepo.findOneByCode(code);
@@ -104,12 +119,12 @@ export class UserService {
 
         const userFoundAndActive = await this.userRepo.findOneByFilter(filter);
         if (!userFoundAndActive) {
-            throw new StandardError(ErrorCodes.USER_NOT_FOUND, 'User is not found or inactive.')
+            throw new StandardError(ErrorCodes.USER_NOT_FOUND, 'User is not found or inactive.');
         }
 
         const isPasswordCorrect = bcrypt.compareSync(user.password, userFoundAndActive.password);
         if (!isPasswordCorrect) {
-            throw new StandardError(ErrorCodes.UNAUTHORIZED, 'Password is invalid.')
+            throw new StandardError(ErrorCodes.UNAUTHORIZED, 'Password is invalid.');
         }
 
         const token = jwt.sign({ id: userFoundAndActive.id }, TOKEN_SECRET_KEY as string, {
@@ -124,11 +139,11 @@ export class UserService {
             last_name: userFoundAndActive.last_name,
             email: userFoundAndActive.email,
             access_token: token
-        }
+        };
     }
 
     async logout(id: string): Promise<void> {
-        const now = new Date(); 
+        const now = new Date();
         await this.userRepo.updateLastLogoutAt(id, now);
 
         // TODO: future improvement by adding token to the 'blacklisted_token' so that we can validate during the login
@@ -152,7 +167,6 @@ export class UserService {
         return response;
     }
 
-
     // TODO: rename and move out to utils
     private isValidCode(code: string): boolean {
         return /[a-z]/.test(code) && /[A-Z]/.test(code) && /\d/.test(code);
@@ -161,16 +175,17 @@ export class UserService {
     private generateRandomCode(): string {
         const length = CODE_LENGTH;
         const charactersRegex = /[a-zA-Z0-9]/g;
-    
+
         return Array.from({ length }, () => {
             let randomChar;
             do {
                 const charCode = Math.floor(Math.random() * 62);
-                randomChar = String.fromCharCode(charCode < 26 ? charCode + 97 : charCode < 52 ? charCode + 39 : charCode - 4);
+                randomChar = String.fromCharCode(
+                    charCode < 26 ? charCode + 97 : charCode < 52 ? charCode + 39 : charCode - 4
+                );
             } while (!randomChar.match(charactersRegex));
-    
+
             return randomChar;
         }).join('');
-    }    
-
+    }
 }

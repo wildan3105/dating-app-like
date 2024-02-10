@@ -3,49 +3,49 @@ import { Request, Response, NextFunction } from 'express';
 import { TOKEN_SECRET_KEY } from '../../config';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-  let token: string | undefined = req.headers['x-access-token'] as string;
+    let token: string | undefined = req.headers['x-access-token'] as string;
 
-  if (!token) {
-    return res.status(403).send({
-        error_code: 'REQUEST_FORBIDDEN_ERROR',
-        message: 'No token provided!'
+    if (!token) {
+        return res.status(403).send({
+            error_code: 'REQUEST_FORBIDDEN_ERROR',
+            message: 'No token provided!'
+        });
+    }
+
+    jwt.verify(token, TOKEN_SECRET_KEY as string, (err, decoded) => {
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(401).send({
+                    error_code: 'UNAUTHORIZED',
+                    message: 'Token has expired'
+                });
+            } else {
+                return res.status(401).send({
+                    error_code: 'UNAUTHORIZED',
+                    message: 'Unauthorized!'
+                });
+            }
+        }
+
+        if (decoded) {
+            const decodedPayload = decoded as JwtPayload;
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            if (decodedPayload.exp && decodedPayload.exp < currentTimestamp) {
+                return res.status(401).send({
+                    error_code: 'UNAUTHORIZED',
+                    message: 'Token has expired!'
+                });
+            }
+
+            req.userId = decodedPayload.id as string;
+            next();
+        } else {
+            return res.status(401).send({
+                error_code: 'UNAUTHORIZED',
+                message: 'Unauthorized!'
+            });
+        }
     });
-  }
-
-  jwt.verify(token, TOKEN_SECRET_KEY as string, (err, decoded) => {
-    if (err) {
-      if (err.name === 'TokenExpiredError') {
-        return res.status(401).send({
-          error_code: 'UNAUTHORIZED',        
-          message: 'Token has expired'
-        });
-      } else {
-        return res.status(401).send({
-          error_code: 'UNAUTHORIZED',        
-          message: 'Unauthorized!'
-        });
-      }
-    }
-
-    if (decoded) {
-      const decodedPayload = decoded as JwtPayload;
-      const currentTimestamp = Math.floor(Date.now() / 1000);
-      if (decodedPayload.exp && decodedPayload.exp < currentTimestamp) {
-        return res.status(401).send({
-          error_code: 'UNAUTHORIZED',
-          message: 'Token has expired!'
-        });
-      }
-
-      req.userId = decodedPayload.id as string;
-      next();
-    } else {
-      return res.status(401).send({
-        error_code: 'UNAUTHORIZED',
-        message: "Unauthorized!"
-      });
-    }
-  });
 };
 
 export default verifyToken;

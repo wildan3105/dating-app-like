@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateUserTable1691117052407 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner) {
         await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "pgcrypto"`);
         await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);

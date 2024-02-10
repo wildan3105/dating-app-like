@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from 'typeorm';
 import { IUser } from '../interfaces/user';
 import { UserVerificationCode } from './user-verification-code-entity';
 import { UserLogin } from './user-login';
@@ -38,6 +46,6 @@ export class User implements IUser {
     @OneToMany(() => UserVerificationCode, (code) => code.user)
     verificationCodes: UserVerificationCode[];
 
-    @OneToMany(() => UserLogin, login => login.user)
+    @OneToMany(() => UserLogin, (login) => login.user)
     logins: UserLogin[];
 }

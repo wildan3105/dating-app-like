@@ -25,7 +25,7 @@ function connectionGuard(connection: DataSource) {
                     await connection.initialize(); // eslint-disable-line
                     console.log(`Reconnected to the DB`);
                 } catch (error) {
-                    console.error(`Reconnection error due to ${error}`)
+                    console.error(`Reconnection error due to ${error}`);
                 }
 
                 if (!connection.isInitialized) {
@@ -45,14 +45,14 @@ export async function connect(): Promise<DataSource | undefined> {
     let connection: DataSource | undefined;
     let isConnected = false;
 
-    console.log(`Connecting to DB...`)
+    console.log(`Connecting to DB...`);
     while (!isConnected) {
         try {
             const dataSource = new DataSource(OrmConfig);
             connection = await dataSource.initialize();
             isConnected = connection.isInitialized;
         } catch (error) {
-            console.error(`createConnection error ${error}`)
+            console.error(`createConnection error ${error}`);
 
             if (IS_TEST) {
                 throw error;
