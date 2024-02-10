@@ -156,3 +156,15 @@ Please go [here](./postman/)
 | **tests/**                      | Test directory for both unit and integration tests.                                                                                   |
 
 ### API Routes
+
+Complete definition of APIs (request body, request parameter, etc.) can be found in this [spec](./docs/openapi.yaml).
+
+| Route                      | Description                       |
+| -------------------------- | --------------------------------- |
+| **/healthcheck/readiness** | Readiness healthcheck             |
+| **/healthcheck/liveness**  | Liveness healthcheck              |
+| **/users**                 | Create a user                     |
+| **/users/auth/login**      | Log in for a user                 |
+| **/users/auth/logout**     | Log out for a user                |
+| **/users/verify**          | Verify user (to make user active) |
+| **/users/profile**         | View logged in user's profile     |
