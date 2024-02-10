@@ -44,6 +44,16 @@ npm run lint:fix -> to fix the lint error if it's fixable
 
 ### Test
 
+#### Integration test
+
+Still WIP
+
+#### Unit test (partial)
+
 ```bash
 npm run test
 ```
+
+#### Postman test
+
+Still WIP
