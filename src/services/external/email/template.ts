@@ -13,7 +13,7 @@ export const emailTemplates = (type: emailType): string => {
             title = 'Reset password';
             break;
         default:
-            title = 'Unknwon';
+            title = 'Unknown';
     }
 
     return title;
