@@ -5,6 +5,7 @@
 // and run `npm run generate-error-map` instead.
 export const ErrorCodes = {
     API_VALIDATION_ERROR: 'API_VALIDATION_ERROR',
+    UNAUTHORIZED: 'UNAUTHORIZED',
     REQUEST_FORBIDDEN_ERROR: 'REQUEST_FORBIDDEN_ERROR',
     USER_NOT_FOUND: 'USER_NOT_FOUND',
     CONFLICT: 'CONFLICT',
@@ -14,6 +15,7 @@ export const ErrorCodes = {
 };
 export const ErrorCodeMap: { [key: string]: number } = {
     API_VALIDATION_ERROR: 400,
+    UNAUTHORIZED: 401,
     REQUEST_FORBIDDEN_ERROR: 403,
     USER_NOT_FOUND: 404,
     CONFLICT: 409,

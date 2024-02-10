@@ -12,8 +12,6 @@ import {
     PGDATABASE,
 } from '../../config';
 
-console.log(`PGUSER is`, PGUSER)
-
 export const OrmConfig = {
     logging: !IS_PRODUCTION && !IS_TEST,
     entities,

@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { UserService } from '../services/user';
 import { IUserVerificationRequest } from '../interfaces/user';
+import verifyToken from './middlewares/auth';
 
 export class UserController {
     private readonly userService: UserService;
@@ -12,6 +13,8 @@ export class UserController {
         this.router = Router();
         this.router.post('/', this.post.bind(this));
         this.router.get('/verify', this.verify.bind(this));
+        this.router.post('/auth/login', this.login.bind(this));
+        this.router.get('/:id', verifyToken, this.view.bind(this));
     }
 
     getRouter(): Router {
@@ -39,6 +42,24 @@ export class UserController {
                     status: 'verified'
                 });
             }
+        } catch (err) {
+            return next(err);
+        }
+    }
+
+    public async login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+        try {
+            const loginResponse = await this.userService.login(req.body);
+            return res.status(200).json(loginResponse);
+        } catch (err) {
+            return next(err);
+        }
+    }
+
+    public async view(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+        try {
+            const userDetailsResponse = await this.userService.getUserDetails(req.params.id, req.userId);
+            return res.status(200).json(userDetailsResponse);
         } catch (err) {
             return next(err);
         }

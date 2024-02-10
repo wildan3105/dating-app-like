@@ -15,7 +15,7 @@
         "strictPropertyInitialization": false,
         "alwaysStrict": true,
         "strict": true,
-        "outDir": "./dist/",
+        "outDir": "./builds/",
         "baseUrl": ".",
         "paths": {
             "*": ["node_modules/*", "vendor/*"]

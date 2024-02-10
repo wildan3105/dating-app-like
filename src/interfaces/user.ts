@@ -8,6 +8,41 @@ export interface IUser {
     is_active: boolean;
 }
 
+export interface IUserCreateRequest {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+}
+
+export interface IUserCreateResponse {
+    id: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    created_at: Date;
+}
+
+export interface IUserLoginRequest {
+    email: string;
+    password: string;
+}
+
+export interface IUserLoginResponse {
+    id: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    access_token: string;
+}
+
+export interface IUserDetailsResponse {
+    id: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+}
+
 export interface IUserVerificationRequest {
     code: string;
 }

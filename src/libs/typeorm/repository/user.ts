@@ -10,7 +10,7 @@ export class UserRepository extends Repository<User> {
     async findOneByFilter(filter: Partial<User>): Promise<User | null> {
         return this.findOne({ where: filter });
     }
-
+    
     async findUserVerificationCodes(user_id: string): Promise<IUserWithVerificationCode | null> {
         const options: FindOneOptions<User> = { where: { id: user_id }, relations: ['verificationCodes'] };
         const user = await this.findOne(options);

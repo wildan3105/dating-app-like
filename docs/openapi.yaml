@@ -5,7 +5,7 @@ info:
   description: 'Dating app like'
 servers:
   - description: SwaggerHub API Auto Mocking
-    url: 'https://virtserver.swaggerhub.com/Xendit/service-level-test-example/0.0.1'
+    url: 'https://google.com'
   - description: Local development
     url: 'http://localhost:3001'
 paths:
@@ -120,6 +120,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error410Response'
+  /users/auth/login:
+    post:
+      description: Logs the user in
+      tags:
+        - user
+      operationId: userLogin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginRequest'
+      responses:
+        200:
+          description: User logs in successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLoginResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400Response'
+        401:
+          description: Password is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401Response'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Response'
+  /users/{id}:
+    get:
+      description: Get user details
+      tags:
+        - user
+      operationId: userGetDetails
+      responses:
+        200:
+          description: Get user details successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailsResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401Response'
+        403:
+          description: No token provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403Response'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Response'
   /errors/{error_code}:
     get:
       tags:
@@ -212,6 +280,20 @@ components:
           type: string
           enum:
             - API_VALIDATION_ERROR
+        message:
+          type: string
+        errors:
+          $ref: '#/components/schemas/ArrayOfErrors'
+    Error401Response:
+      type: object
+      required:
+        - error_code
+        - message
+      properties:
+        error_code:
+          type: string
+          enum:
+            - UNAUTHORIZED
         message:
           type: string
         errors:
@@ -340,6 +422,7 @@ components:
         - first_name
         - last_name
         - email
+        - password
       properties:
         first_name:
           type: string
@@ -347,9 +430,58 @@ components:
           type: string
         email:
           type: string
+        password:
+          type: string
+          minLength: 8
     VerifyUserResponse:
       type: object
       properties:
         message:
           type: string
           description: Message indicating successful user activation
+    UserLoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+          minLength: 8
+    UserLoginResponse:
+      type: object
+      required:
+        - id
+        - email
+        - first_name
+        - last_name
+        - access_token
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        access_token:
+          type: string
+    UserDetailsResponse:
+      type: object
+      required:
+        - id
+        - email
+        - first_name
+        - last_name
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string

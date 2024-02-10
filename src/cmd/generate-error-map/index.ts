@@ -15,7 +15,6 @@ function logUsageHelp() {
     // eslint-disable-next-line no-console
     console.log(
         `
-generate-error-map generate [key - value] maps of [Xendit error codes - HTTP codes] and [Xendit error codes - string values]
 
 usage:
   ./generate-error-map <command>

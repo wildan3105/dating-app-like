@@ -1,0 +1,17 @@
+import { EventEmitter } from 'events';
+import { UserEventListener } from './listeners/user-event';
+import { User } from '../domain/user-entity';
+import { ElasticEmailService } from '../services/external/email/index';
+
+const emailService = new ElasticEmailService();
+
+class Event extends EventEmitter {};
+
+const events = new Event();
+const userEventListener = new UserEventListener(emailService);
+
+events.on('new_user', async (user: User, code: string) => {
+    await userEventListener.handleNewUser(user, code);
+})
+
+export default events;

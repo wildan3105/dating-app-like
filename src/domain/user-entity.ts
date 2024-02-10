@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { IUser } from '../interfaces/user';
 import { UserVerificationCode } from './user-verification-code-entity';
+import { UserLogin } from './user-login';
 
 @Entity()
 export class User implements IUser {
@@ -12,6 +13,9 @@ export class User implements IUser {
 
     @Column({ type: 'text' })
     last_name: string;
+
+    @Column({ type: 'text', nullable: false })
+    password: string;
 
     @Column({ type: 'text' })
     email: string;
@@ -30,4 +34,7 @@ export class User implements IUser {
 
     @OneToMany(() => UserVerificationCode, (code) => code.user)
     verificationCodes: UserVerificationCode[];
+
+    @OneToMany(() => UserLogin, login => login.user)
+    logins: UserLogin[];
 }
