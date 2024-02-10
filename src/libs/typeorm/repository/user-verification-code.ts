@@ -8,7 +8,7 @@ export class UserVerificationCodeRepository extends Repository<UserVerificationC
         super(UserVerificationCode, dataSource.createEntityManager());
     }
 
-    async createVerificationCode(verificationCode: ICreateVerificationCode, user: User): Promise<any> {
+    async createVerificationCode(verificationCode: ICreateVerificationCode, user: User): Promise<UserVerificationCode> {
         const newVerificationCode = new UserVerificationCode();
 
         newVerificationCode.code = verificationCode.code;
