@@ -48,7 +48,7 @@
         "lint:fix": "eslint . --ext .ts --fix",
         "format": "prettier --config .prettierrc.js --write './**/*.{js,ts,json,yml,yaml}' --ignore-path .prettierignore",
         "format:check": "prettier --config .prettierrc.js --check './**/*.{js,ts,json,yml,yaml}' --ignore-path .prettierignore",
-        "test": "jest ./src/tests/**/**.ts",
+        "test": "jest ./tests/**/**.ts",
         "generate-error-map": "ts-node src/cmd/generate-error-map generate"
     },
     "author": "",
