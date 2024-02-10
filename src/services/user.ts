@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 import { UserRepository } from '../libs/typeorm/repository/user';
 import { UserVerificationCodeRepository } from '../libs/typeorm/repository/user-verification-code';
+import { UserLoginRepository } from '../libs/typeorm/repository/user-login';
 import { ErrorCodes } from '../domain/errors';
 import { StandardError } from '../domain/standard-error';
 import {
@@ -24,10 +25,16 @@ const CODE_LENGTH = 255;
 export class UserService {
     private readonly userRepo: UserRepository;
     private readonly userVerificationCodeRepo: UserVerificationCodeRepository;
+    private readonly userLoginRepo: UserLoginRepository;
 
-    constructor(userRepo: UserRepository, userVerificationCodeRepo: UserVerificationCodeRepository) {
+    constructor(
+        userRepo: UserRepository,
+        userVerificationCodeRepo: UserVerificationCodeRepository,
+        userLoginRepo: UserLoginRepository
+    ) {
         this.userRepo = userRepo;
         this.userVerificationCodeRepo = userVerificationCodeRepo;
+        this.userLoginRepo = userLoginRepo;
     }
 
     async create(user: IUserCreateRequest): Promise<IUserCreateResponse> {
@@ -134,6 +141,10 @@ export class UserService {
             expiresIn: TOKEN_LIFETIME_IN_SECONDS
         });
 
+        // TODO: improve user login records by adding the real ip or the likes
+        const loginTimestamp = new Date();
+        await this.userLoginRepo.createUserLogin({ login_timetamp: loginTimestamp }, userFoundAndActive);
+
         return {
             id: userFoundAndActive.id,
             first_name: userFoundAndActive.first_name,
@@ -147,7 +158,7 @@ export class UserService {
         const now = new Date();
         await this.userRepo.updateLastLogoutAt(id, now);
 
-        // TODO: future improvement by adding token to the 'blacklisted_token' so that we can validate during the login
+        // TODO: invalidate current token by adding the token to the 'blacklisted_token' so that we can validate during the login
         // for now, I'll just emit an event to indicate certain user is performing log out
         events.emit('user_logout', { user_id: id });
     }

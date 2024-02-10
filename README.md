@@ -1,5 +1,11 @@
 ## Dating app like
 
+### Tech stacks
+
+-   Language: TypeScript
+-   Framework: ExpressJS
+-   Database: PostgreSQL
+
 ## How to run
 
 ### System requirement

@@ -7,6 +7,8 @@ import { AddEncryptedPasswordToUser1707470430600 } from './1707470430600-add-enc
 import { CreateUserLoginTable1707472539187 } from './1707472539187-add-user-login-table';
 import { RenameEncryptedPasswordToPassword1707516734946 } from './1707516734946-rename-encrypted-password-column-in-user-table';
 import { AddLastLogoutAtToUser1707528202400 } from './1707528202400-add-last-logout-at-column-to-user-table';
+import { AddRelationBetweenUserLoginAndUser1707606565186 } from './1707606565186-add-missing-relation-between-user-login-and-user-table';
+import { RemoveRedundantForeignKeyConstraint1707606998675 } from './1707606998675-remove-redundant-foreign-key-user-login';
 
 export const migrations = [
     CreateUserTable1691117052407,
@@ -17,5 +19,7 @@ export const migrations = [
     AddEncryptedPasswordToUser1707470430600,
     CreateUserLoginTable1707472539187,
     RenameEncryptedPasswordToPassword1707516734946,
-    AddLastLogoutAtToUser1707528202400
+    AddLastLogoutAtToUser1707528202400,
+    AddRelationBetweenUserLoginAndUser1707606565186,
+    RemoveRedundantForeignKeyConstraint1707606998675
 ];
