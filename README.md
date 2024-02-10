@@ -138,19 +138,19 @@ Still WIP
 
 #### Explanation
 
-| Name                            | Description                                                                                                                          |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| **docs/**                       | Store Open API spec                                                                                                                  |
-| **src/**                        | Source files                                                                                                                         |
-| **src/cmd/**                    | All CLI-based files are stored here. In this specific case, it used for generating error code map based on Open API definition.      |
-| **src/controllers/**            | REST API Controllers                                                                                                                 |
-| **src/controllers/middlewares** | Store middlewares that are used to intercept, validate, add data to request/response and or perform authentication to certain routes |
-| **src/domain**                  | Typescript classes to represent entities                                                                                             |
-| **src/events/**                 | Event listeners                                                                                                                      |
-| **src/interfaces/**             | A collection of interfaces, especially for HTTP request-response                                                                     |
-| **src/libs/env/**               | Library to inject environment variable from an `.env` file                                                                           |
-| **src/libs/sleep/**             | Library to add delay for a certain amount of time                                                                                    |
-| **src/libs/typeorm/**           | All functionalities with regard to type ORM (SQL migration files, ORM config, and repository layer)                                  |
-| **src/services/**               | Service layer. Core business logics are stored here                                                                                  |
-| **src/utils/**                  | Some utility functions, typically to generate random code and check if a given string conforms with the certain rule                 |
-| **tests/**                      | Test directory for both unit and integration tests.                                                                                  |
+| Name                            | Description                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **docs/**                       | Store Open API spec.                                                                                                                  |
+| **src/**                        | Source files.                                                                                                                         |
+| **src/cmd/**                    | All CLI-based files are stored here. In this specific case, it will generate error code based on Open API definition.                 |
+| **src/controllers/**            | REST API Controllers.                                                                                                                 |
+| **src/controllers/middlewares** | Store middlewares that are used to intercept, validate, add data to request/response and or perform authentication to certain routes. |
+| **src/domain**                  | Typescript classes to represent entities.                                                                                             |
+| **src/events/**                 | Event listeners.                                                                                                                      |
+| **src/interfaces/**             | A collection of interfaces, especially for HTTP request-response.                                                                     |
+| **src/libs/env/**               | Library to inject environment variable from an `.env` file.                                                                           |
+| **src/libs/sleep/**             | Library to add delay for a certain amount of time.                                                                                    |
+| **src/libs/typeorm/**           | All functionalities with regard to type ORM (SQL migration files, ORM config, and repository layer).                                  |
+| **src/services/**               | Service layer. Core business logics are stored here.                                                                                  |
+| **src/utils/**                  | This directory contains utility functions for generating random codes and validating strings against specific rules                   |
+| **tests/**                      | Test directory for both unit and integration tests.                                                                                   |
