@@ -8,6 +8,7 @@ import { UserService } from './services/user';
 
 import { UserRepository } from './libs/typeorm/repository/user';
 import { UserVerificationCodeRepository } from './libs/typeorm/repository/user-verification-code';
+import { UserLoginRepository } from './libs/typeorm/repository/user-login';
 
 import { DataSource } from 'typeorm';
 
@@ -23,10 +24,11 @@ interface InitResponse {
 export async function init(dataSource: DataSource): Promise<InitResponse> {
     const userRepo = new UserRepository(dataSource);
     const userVerificationCodeRepo = new UserVerificationCodeRepository(dataSource);
+    const userLoginRepo = new UserLoginRepository(dataSource);
 
     // services
     const healthcheckService = new HealthcheckService(dataSource);
-    const userService = new UserService(userRepo, userVerificationCodeRepo);
+    const userService = new UserService(userRepo, userVerificationCodeRepo, userLoginRepo);
 
     // controllers
     const healthcheckController = new HealthcheckController(healthcheckService);
