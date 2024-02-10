@@ -14,14 +14,24 @@
 
 1. Clone the project: `git clone https://github.com/wildan3105/dating-app-like.git`
 2. Install dependencies: `npm i`
-3. Run the migration file: `npm run migration:run`
-4. Use the correct environment variable `.env`. Please copy from [this template](.env.example)
+3. Copy the environment variable and adjust the value accordingly: `cp .env.example .env`
+4. Create postgre users and then database in which you have full access to that DB. And then specify the credentials in the `.env` file
 
-#### Using TS
+```bash
+PGHOST='localhost'
+PGPORT='5432'
+PGUSER='postgres'
+PGDATABASE='db'
+PGPASSWORD='postgrespass123'
+```
+
+5. Run the migration file: `npm run migration:run`
+
+#### Using TypeScript
 
 1. Run the server `npm run start` (it will watch any `TS` file changes and re-spawn it automatically)
 
-#### Using JS
+#### Using JavaScript
 
 1. Build to JS files: `npm run build`
 2. Run the JS file: `node builds/src/server.js`
