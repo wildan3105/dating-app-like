@@ -12,7 +12,7 @@
 
 **Prerequisites**
 
-1. Clone the project: `git clone https://github.com/wildan3105/dating-app-like.git`
+1. Clone the project: `git clone git@github.com:wildan3105/dating-app-like.git`
 2. Install dependencies: `npm i`
 3. Copy the environment variable and adjust the value accordingly: `cp .env.example .env`
 4. Create postgre users and then database in which you have full access to that DB. And then specify the credentials in the `.env` file
