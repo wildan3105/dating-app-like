@@ -65,3 +65,92 @@ npm run test
 #### Postman test
 
 Still WIP
+
+### Project structure
+
+#### Folder tree
+
+```md
+├── docs
+│   └── openapi.yaml
+├── postman
+├── src
+│   ├── app.ts
+│   ├── cmd
+│   │   └── generate-error-map
+│   │   ├── index.ts
+│   │   └── schema-http-code.json
+│   ├── config.ts
+│   ├── controllers
+│   │   ├── healthcheck.ts
+│   │   ├── middlewares
+│   │   │   ├── auth.ts
+│   │   │   └── handle-error-code.ts
+│   │   └── user.ts
+│   ├── db-connect.ts
+│   ├── domain
+│   │   ├── errors.ts
+│   │   ├── standard-error.ts
+│   │   ├── user-entity.ts
+│   │   ├── user-login.ts
+│   │   └── user-verification-code-entity.ts
+│   ├── events
+│   │   ├── index.ts
+│   │   └── listeners
+│   │   └── user-event.ts
+│   ├── init.ts
+│   ├── interfaces
+│   │   ├── user-verification-code.ts
+│   │   └── user.ts
+│   ├── libs
+│   │   ├── env
+│   │   │   └── index.ts
+│   │   ├── sleep
+│   │   │   └── index.ts
+│   │   └── typeorm
+│   │   ├── entities.ts
+│   │   ├── migrations
+│   │   │   ├── ... migration files
+│   │   │   └── index.ts
+│   │   ├── ormconfig-cli.ts
+│   │   ├── ormconfig.ts
+│   │   └── repository
+│   │   ├── user-verification-code.ts
+│   │   └── user.ts
+│   ├── server.ts
+│   ├── services
+│   │   ├── external
+│   │   │   └── email
+│   │   │   ├── config.ts
+│   │   │   ├── index.ts
+│   │   │   ├── interface.ts
+│   │   │   └── template.ts
+│   │   ├── healthcheck.ts
+│   │   └── user.ts
+│   └── utils
+│   └── index.ts
+├── tests
+│   ├── controllers
+│   │   └── healthcheck.test.ts
+│   └── utils
+│   └── index.test.ts
+```
+
+#### Explanation
+
+| Name                            | Description                                                                                                                          |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **docs/**                       | Store Open API spec                                                                                                                  |
+| **src/**                        | Source files                                                                                                                         |
+| **src/cmd/**                    | All CLI-based files are stored here. In this specific case, it used for generating error code map based on Open API definition.      |
+| **src/controllers/**            | REST API Controllers                                                                                                                 |
+| **src/controllers/middlewares** | Store middlewares that are used to intercept, validate, add data to request/response and or perform authentication to certain routes |
+| **src/domain**                  | Typescript classes to represent entities                                                                                             |
+| **src/events/**                 | Event listeners                                                                                                                      |
+| **src/interfaces/**             | A collection of interfaces, especially for HTTP request-response                                                                     |
+| **src/libs/env/**               | Library to inject environment variable from an `.env` file                                                                           |
+| **src/libs/sleep/**             | Library to add delay for a certain amount of time                                                                                    |
+| **src/libs/typeorm/**           | All functionalities with regard to type ORM (SQL migration files, ORM config, and repository layer)                                  |
+| **src/services/**               | Service layer. Core business logics are stored here                                                                                  |
+| **src/utils/**                  | Some utility functions, typically to generate random code and check if a given string conforms with the certain rule                 |
+| **tests/**                      | Test directory for both unit and integration tests.                                                                                  |
