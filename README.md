@@ -15,7 +15,7 @@
 1. Clone the project: `git clone git@github.com:wildan3105/dating-app-like.git`
 2. Install dependencies: `npm i`
 3. Copy the environment variable and adjust the value accordingly: `cp .env.example .env`
-4. Create a postgre user and then database in which you have full access to that DB (could create extension). And then specify the credentials in the `.env` file
+4. Create a postgre user and then database in which you have full access to that DB (could [create extension](./src/libs/typeorm/migrations/1691117052407-create-user-table.ts#L5-L6)). And then specify the credentials in the `.env` file
 
 ```bash
 PGHOST='localhost'
@@ -64,7 +64,7 @@ npm run test
 
 #### Postman test
 
-Still WIP
+Please go [here](./postman/)
 
 ### Project structure
 
@@ -154,3 +154,17 @@ Still WIP
 | **src/services/**               | Service layer. Core business logics are stored here.                                                                                  |
 | **src/utils/**                  | This directory contains utility functions for generating random codes and validating strings against specific rules                   |
 | **tests/**                      | Test directory for both unit and integration tests.                                                                                   |
+
+### API Routes
+
+Complete definition of APIs (request body, request parameter, etc.) can be found in this [spec](./docs/openapi.yaml).
+
+| Route                      | Description                       |
+| -------------------------- | --------------------------------- |
+| **/healthcheck/readiness** | Readiness healthcheck             |
+| **/healthcheck/liveness**  | Liveness healthcheck              |
+| **/users**                 | Create a user                     |
+| **/users/auth/login**      | Log in for a user                 |
+| **/users/auth/logout**     | Log out for a user                |
+| **/users/verify**          | Verify user (to make user active) |
+| **/users/profile**         | View logged in user's profile     |
