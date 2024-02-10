@@ -8,33 +8,23 @@
 2. NPM >= 9.5.0
 3. Postgres >= 12.0.0
 
-### Install
-
-```bash
-npm i
-```
-
-### Migration
-
-Must be run once using this command:
-
-```bash
-npm run migration:run
-```
-
 ### Running locally
 
-1. Using built JS files
+**Prerequisites**
 
-```bash
-npm run build && node builds/server.js
-```
+1. Clone the project: `git clone https://github.com/wildan3105/dating-app-like.git`
+2. Install dependencies: `npm i`
+3. Run the migration file: `npm run migration:run`
+4. Use the correct environment variable `.env`. Please copy from [this template](.env.example)
 
-2. Using TS and watch mode (will re-spawn if there are `TS` file changes):
+#### Using TS
 
-```bash
-npm run start
-```
+1. Run the server `npm run start` (it will watch any `TS` file changes and re-spawn it automatically)
+
+#### Using JS
+
+1. Build to JS files: `npm run build`
+2. Run the JS file: `node builds/src/server.js`
 
 ## Testing
 
