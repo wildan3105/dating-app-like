@@ -1,4 +1,4 @@
-import { generateRandomCode, isValidCode } from '../src/utils';
+import { generateRandomCode, isValidCode } from '../../../src/utils/index';
 
 describe('generateRandomCode', () => {
     it('should generate a random code of the specified length', () => {
