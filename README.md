@@ -64,7 +64,7 @@ npm run test
 
 #### Postman test
 
-Still WIP
+Please go [here](./postman/)
 
 ### Project structure
 
@@ -154,3 +154,5 @@ Still WIP
 | **src/services/**               | Service layer. Core business logics are stored here.                                                                                  |
 | **src/utils/**                  | This directory contains utility functions for generating random codes and validating strings against specific rules                   |
 | **tests/**                      | Test directory for both unit and integration tests.                                                                                   |
+
+### API Routes

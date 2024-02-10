@@ -1,0 +1,328 @@
+{
+    "info": {
+        "_postman_id": "6e6dede7-138a-4535-9bf0-5451f3695c88",
+        "name": "dating-app-like",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "11338646"
+    },
+    "item": [
+        {
+            "name": "healthcheck readiness",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 200 OK\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has 'status' property set to 'OK'\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.have.property('status', 'OK');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base-url-local}}/healthcheck/readiness",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["healthcheck", "readiness"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "healthcheck liveness",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 200 OK\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has 'status' property set to 'OK'\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.have.property('status', 'OK');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base-url-local}}/healthcheck/liveness",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["healthcheck", "liveness"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "create user - ok",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 201 created\", function () {\r",
+                            "    pm.response.to.have.status(201);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has expected data\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.be.an('object');\r",
+                            "    pm.expect(jsonData.id).to.be.a('string');\r",
+                            "    pm.expect(jsonData.first_name).to.be.a('string');\r",
+                            "    pm.expect(jsonData.last_name).to.be.a('string');\r",
+                            "    pm.expect(jsonData.email).to.be.a('string');\r",
+                            "    pm.expect(jsonData.created_at).to.be.a('string');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}\",\r\n    \"last_name\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base-url-local}}/users",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["users"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "create user - password not strong enough",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 400 bad request\", function () {\r",
+                            "    pm.response.to.have.status(400);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has expected data\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.be.an('object');\r",
+                            "    pm.expect(jsonData.error_code).to.be.a('string');\r",
+                            "    pm.expect(jsonData.message).to.be.a('string');\r",
+                            "    pm.expect(jsonData.error_code).to.equal('API_VALIDATION_ERROR')\r",
+                            "    pm.expect(jsonData.message).to.be.equal('Password must contain at least 1 number, 1 uppercase letter and 1 lowercase letter.');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}\",\r\n    \"last_name\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"abc12345\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base-url-local}}/users",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["users"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "verify - invalid code",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 400 bad request\", function () {\r",
+                            "    pm.response.to.have.status(400);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has expected data\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.be.an('object');\r",
+                            "    pm.expect(jsonData.error_code).to.be.a('string');\r",
+                            "    pm.expect(jsonData.message).to.be.a('string');\r",
+                            "    pm.expect(jsonData.error_code).to.equal('API_VALIDATION_ERROR')\r",
+                            "    pm.expect(jsonData.message).to.be.equal('Code is invalid. Please check your verification code.');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}\",\r\n    \"last_name\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"abc12345\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base-url-local}}/users/verify?code=somerandomcode",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["users", "verify"],
+                    "query": [
+                        {
+                            "key": "code",
+                            "value": "somerandomcode"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "view user profile - forbidden - no token provided",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 403 forbidden\", function () {\r",
+                            "    pm.response.to.have.status(403);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has expected data\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.be.an('object');\r",
+                            "    pm.expect(jsonData.error_code).to.be.a('string');\r",
+                            "    pm.expect(jsonData.message).to.be.a('string');\r",
+                            "    pm.expect(jsonData.error_code).to.equal('REQUEST_FORBIDDEN_ERROR')\r",
+                            "    pm.expect(jsonData.message).to.be.equal('No token provided!');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}\",\r\n    \"last_name\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"abc12345\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base-url-local}}/users/profile",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["users", "profile"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "view user profile - unauthorized - invalid token",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// Test for HTTP status code\r",
+                            "pm.test(\"Status code is 400 unauthorized\", function () {\r",
+                            "    pm.response.to.have.status(401);\r",
+                            "});\r",
+                            "\r",
+                            "// Test for response body\r",
+                            "pm.test(\"Response body has expected data\", function () {\r",
+                            "    const jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData).to.be.an('object');\r",
+                            "    pm.expect(jsonData.error_code).to.be.a('string');\r",
+                            "    pm.expect(jsonData.message).to.be.a('string');\r",
+                            "    pm.expect(jsonData.error_code).to.equal('UNAUTHORIZED')\r",
+                            "    pm.expect(jsonData.message).to.be.equal('Unauthorized!');\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "x-access-token",
+                        "value": "abc123",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}\",\r\n    \"last_name\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"abc12345\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base-url-local}}/users/profile",
+                    "host": ["{{base-url-local}}"],
+                    "path": ["users", "profile"]
+                }
+            },
+            "response": []
+        }
+    ]
+}
