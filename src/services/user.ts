@@ -46,10 +46,7 @@ export class UserService {
         const existingActiveUser = await this.userRepo.findOneByFilter(filter);
 
         if (existingActiveUser) {
-            throw new StandardError(
-                ErrorCodes.UNPROCESSABLE,
-                `User with email: ${filter.email} is already registered.`
-            );
+            throw new StandardError(ErrorCodes.UNPROCESSABLE, `User with email: ${filter.email} is already active.`);
         }
 
         if (!isValidCode(user.password)) {

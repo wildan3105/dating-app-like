@@ -12,10 +12,11 @@ export class UserEventListener {
 
     async handleNewUser(user: User, code: string): Promise<void> {
         try {
+            const fullVerificationLink = BASE_URL + '/users/verify?code=' + code;
             const emailContent = {
                 recipient: user.email,
                 subject: emailTemplates(emailType.NEW_USER),
-                content: `Hi <b> ${user.first_name}</b>! \n Welcome to the dating app. \n Please activate your account by clicking this link \n: <a href=${BASE_URL}/users/verify?code=${code}> Link</a>`
+                content: `Hi <b> ${user.first_name}</b>! <br><br> Welcome to the dating app. Please activate your account by clicking this link: <a href=${BASE_URL}/users/verify?code=${code}> Link</a> <br><br> In case the above link didn't work for you, please click below link: <br> ${fullVerificationLink}`
             };
 
             console.log(`Sending email to ${user.email} for verification`);
