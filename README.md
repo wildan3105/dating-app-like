@@ -2,6 +2,12 @@
 
 ## How to run
 
+### System requirement
+
+1. Node >= 18.0.0
+2. NPM >= 9.5.0
+3. Postgres >= 12.0.0
+
 ### Install
 
 ```bash
@@ -42,12 +48,12 @@ npm run format -> to automatically format the code
 ### Linter
 
 ```bash
-npm run lint -> to check the lint (prevent bugs early)
-npm run lint:fix -> to fix the lint if it's fixable
+npm run lint -> to check the lint error (prevent bugs early)
+npm run lint:fix -> to fix the lint error if it's fixable
 ```
 
 ### Test
 
 ```bash
-
+npm run test
 ```

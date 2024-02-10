@@ -13,12 +13,13 @@ import {
     IUserDetailsResponse
 } from '../interfaces/user';
 import { TOKEN_SECRET_KEY } from '../config';
+import { generateRandomCode, isValidCode } from '../utils/index';
 import events from '../events';
 
 const SEVEN_DAY_IN_MILIS = 7 * 24 * 60 * 60 * 1000;
-const CODE_LENGTH = 255;
 const SALT_ROUNDS = 13;
 const TOKEN_LIFETIME_IN_SECONDS = 86400; // 24 hours
+const CODE_LENGTH = 255;
 
 export class UserService {
     private readonly userRepo: UserRepository;
@@ -44,7 +45,7 @@ export class UserService {
             );
         }
 
-        if (!this.isValidCode(user.password)) {
+        if (!isValidCode(user.password)) {
             throw new StandardError(
                 ErrorCodes.API_VALIDATION_ERROR,
                 'Password must contain at least 1 number, 1 uppercase letter and 1 lowercase letter.'
@@ -56,7 +57,7 @@ export class UserService {
         const createdUser = await this.userRepo.save(user);
 
         const expiredAt = new Date(Date.now() + SEVEN_DAY_IN_MILIS);
-        const code = this.generateRandomCode();
+        const code = generateRandomCode(CODE_LENGTH);
         const verificationCodeData = {
             expired_at: expiredAt,
             code,
@@ -81,7 +82,7 @@ export class UserService {
     }
 
     async verify(code: string): Promise<boolean | Error> {
-        if (code.length !== CODE_LENGTH || !this.isValidCode(code)) {
+        if (code.length !== CODE_LENGTH || !isValidCode(code)) {
             throw new StandardError(
                 ErrorCodes.API_VALIDATION_ERROR,
                 'Code is invalid. Please check your verification code.'
@@ -165,27 +166,5 @@ export class UserService {
         };
 
         return response;
-    }
-
-    // TODO: rename and move out to utils
-    private isValidCode(code: string): boolean {
-        return /[a-z]/.test(code) && /[A-Z]/.test(code) && /\d/.test(code);
-    }
-
-    private generateRandomCode(): string {
-        const length = CODE_LENGTH;
-        const charactersRegex = /[a-zA-Z0-9]/g;
-
-        return Array.from({ length }, () => {
-            let randomChar;
-            do {
-                const charCode = Math.floor(Math.random() * 62);
-                randomChar = String.fromCharCode(
-                    charCode < 26 ? charCode + 97 : charCode < 52 ? charCode + 39 : charCode - 4
-                );
-            } while (!randomChar.match(charactersRegex));
-
-            return randomChar;
-        }).join('');
     }
 }
