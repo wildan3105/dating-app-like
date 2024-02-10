@@ -1,4 +1,4 @@
-import { DataSource, FindOneOptions, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { UserLogin } from '../../../domain/user-login';
 import { User } from '../../../domain/user-entity';
 import { IUserLoginRequest, IUserLoginResponse } from '../../../interfaces/user-login';
