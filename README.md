@@ -24,6 +24,10 @@ npm run migration:run
 
 ### Running locally
 
+#### Using Docker
+
+#### Using Node
+
 1. Using built JS files
 
 ```bash

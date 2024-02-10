@@ -19,7 +19,7 @@ export const IS_TEST = APP_ENV === 'test';
 
 export const PGDATABASE = process.env.PGDATABASE;
 export const PGHOST = process.env.PGHOST;
-export const PGPORT = Number(process.env.PGPORT) || 5432;
+export const PGPORT = Number(process.env.PGPORT);
 export const PGUSER = process.env.PGUSER;
 export const PGPASSWORD = process.env.PGPASSWORD;
 
