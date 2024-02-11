@@ -1,5 +1,5 @@
 import { DataSource, Repository } from 'typeorm';
-import { UserLogin } from '../../../domain/user-login';
+import { UserLogin } from '../../../domain/user-login-entity';
 import { User } from '../../../domain/user-entity';
 import { IUserLoginRequest, IUserLoginResponse } from '../../../interfaces/user-login';
 

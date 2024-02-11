@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { IUser } from '../interfaces/user';
 import { UserVerificationCode } from './user-verification-code-entity';
-import { UserLogin } from './user-login';
+import { UserLogin } from './user-login-entity';
 
 @Entity()
 export class User implements IUser {
