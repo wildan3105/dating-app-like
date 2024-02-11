@@ -3,6 +3,7 @@ import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
+import cors from 'cors';
 import * as OpenApiValidator from 'express-openapi-validator';
 
 import { PORT } from './config';
@@ -33,6 +34,7 @@ export async function createApp(): Promise<{ app: Application; dataSource: DataS
     }
 
     const app = express();
+    app.use(cors());
     app.set('port', PORT);
     app.use(helmet() as RequestHandler);
     app.use(compression());
